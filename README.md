@@ -11,5 +11,9 @@ In addition I created two Junit classes to separately test the Tree class and th
 
 I chose to make the Tree class generic.
 
+For a pure Javascript implementation please visit the repository:
+
+https://github.com/dubersfeld/binary-search-trees-javascript-demo
+
 
 Dominique Ubersfeld, Cachan, France  
