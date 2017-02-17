@@ -369,7 +369,6 @@ $(document).ready(canvasApp);
 
   <nav>
   <br>
-  <a href="/ALGORITHMS/BinarySearchTrees/BinarySearchTrees.html">Back to Binary Search Trees main page</a>
   </nav>
   <br>
   <section id="intro">
