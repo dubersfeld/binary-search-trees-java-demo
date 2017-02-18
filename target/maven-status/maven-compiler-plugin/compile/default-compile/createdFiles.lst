@@ -17,4 +17,5 @@ com/dub/site/binarySearchTrees/DisplayNode.class
 com/dub/config/ServletContextConfiguration.class
 com/dub/site/binarySearchTrees/SimpleNodeFactory.class
 com/dub/site/binarySearchTrees/BSTController.class
+com/dub/site/binarySearchTrees/Geometry.class
 com/dub/site/binarySearchTrees/TreeResponse.class

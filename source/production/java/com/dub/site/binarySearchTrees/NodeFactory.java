@@ -1,9 +1,11 @@
 package com.dub.site.binarySearchTrees;
 
-public abstract class NodeFactory<T extends Node> {
+import java.io.Serializable;
+
+public abstract class NodeFactory<T extends Serializable> {
 	
-	abstract public T build(int key);	
+	abstract public Node<T> build(int key);	
 	
-	abstract public T build(int key, String data, T left, T right, T parent);
+	abstract public Node<T> build(int key, T data, Node<T> left, Node<T> right, Node<T> parent);
 }
 

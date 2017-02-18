@@ -1,23 +1,23 @@
 package com.dub.site.binarySearchTrees;
 
 
-/** Basic class */
-public class SimpleNode implements Node {
+/** Simple Node implementation */
+public class SimpleNode implements Node<String> {
 	
 	private int mKey;
-	private SimpleNode mLeft, mRight, mParent;
+	private Node<String> mLeft, mRight, mParent;
 	private String mData;
      	
 	public SimpleNode(int key) {
 		this.mKey = key;
-		this.mData = "";
+		this.mData = "";// not null
     	this.mLeft = null;
     	this.mRight = null;
     	this.mParent = null;     
 	}
 	
 
-    public SimpleNode(int key, String data, SimpleNode left, SimpleNode right, SimpleNode parent) {
+    public SimpleNode(int key, String data, Node<String> left, Node<String> right, Node<String> parent) {
     	this.mKey = key;
     	this.mData = data;
     	this.mLeft = left;
@@ -36,41 +36,42 @@ public class SimpleNode implements Node {
 	}
 
     @Override
-	public Node getmLeft() {
+	public SimpleNode getmLeft() {
 		return (SimpleNode)mLeft;
 	}
 
     @Override
-	public void setmLeft(Node mLeft) {
+	public void setmLeft(Node<String> mLeft) {
 		this.mLeft = (SimpleNode)mLeft;
 	}
 
     @Override
-	public Node getmRight() {
+	public SimpleNode getmRight() {
 		return (SimpleNode)mRight;
 	}
 
     @Override
-	public void setmRight(Node mRight) {
+	public void setmRight(Node<String> mRight) {
 		this.mRight = (SimpleNode)mRight;
 	}
 
     @Override
-	public Node getmParent() {
+	public SimpleNode getmParent() {
 		return (SimpleNode)mParent;
 	}
 
     @Override
-	public void setmParent(Node mParent) {
+	public void setmParent(Node<String> mParent) {
 		this.mParent = (SimpleNode)mParent;
 	}
 
+    @Override
 	public String getmData() {
 		return mData;
 	}
 
+    @Override
 	public void setmData(String mData) {
 		this.mData = mData;
-	}
-      
+	}  
 } 

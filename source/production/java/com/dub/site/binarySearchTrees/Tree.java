@@ -4,24 +4,24 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Tree<T extends Node, S extends NodeFactory<T>> implements Serializable {
+public class Tree<T extends Serializable, S extends NodeFactory<T>> implements Serializable {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	T mRoot;// root node
+	Node<T> mRoot;// root node
 	S nodeFactory;// nodeFactory
 	  
-    public Tree(T root, S nodeFactory) {
+    public Tree(Node<T> root, S nodeFactory) {
     	this.mRoot = root;
     	this.nodeFactory = nodeFactory;
     	
     }
 
     public Tree(S nodeFactory) {
-   
+    	this.mRoot = null;
     	this.nodeFactory = nodeFactory;
     }
     
@@ -33,12 +33,12 @@ public class Tree<T extends Node, S extends NodeFactory<T>> implements Serializa
 	public void copyTree(Tree<T,S> rhs, S nodeFactory) {
     	// deep copy method, breadthFirstWalk based
 	
-    	Queue<Node> queue = new Queue<>();// rhs side Node not T, always code against interface or abstract class
-    	Queue<Node> queueP = new Queue<>();// this side
-    	Node x, last;//rhs side
+    	Queue<Node<T>> queue = new Queue<>();// rhs side Node not T, always code against interface or abstract class
+    	Queue<Node<T>> queueP = new Queue<>();// this side
+    	Node<T> x, last;//rhs side
              
-    	Node prevC;// this side
-    	T newnode; 
+    	Node<T> prevC;// this side
+    	Node<T> newnode; 
 
 
     	if (rhs.mRoot == null) {
@@ -83,15 +83,15 @@ public class Tree<T extends Node, S extends NodeFactory<T>> implements Serializa
     	}         
     }
    
-	public Node getmRoot() {
+	public Node<T> getmRoot() {
 		return mRoot;
 	}
 
-	public void setmRoot(T mRoot) {
+	public void setmRoot(Node<T> mRoot) {
 		this.mRoot = mRoot;
 	}  
     
-	public Node search(Node node, int key) {
+	public Node<T> search(Node<T> node, int key) {
         while (node != null && key != node.getmKey()) {
             if (key < node.getmKey()) {
                 node = node.getmLeft();
@@ -102,10 +102,10 @@ public class Tree<T extends Node, S extends NodeFactory<T>> implements Serializa
         return node;            
     }// search
     
-	public void insert(T x) {
+	public void insert(Node<T> x) {
       
-         Node ptr = null;
-         Node ptr1 = mRoot;
+         Node<T> ptr = null;
+         Node<T> ptr1 = mRoot;
 
          if (mRoot == null) { 
         	 // tree empty
@@ -134,8 +134,8 @@ public class Tree<T extends Node, S extends NodeFactory<T>> implements Serializa
          }
      }// insert
 	 
-	public void remove(Node pNode) {		
-         Node ptr = null;
+	public void remove(Node<T> pNode) {		
+         Node<T> ptr = null;
          if (pNode.getmLeft() == null) {// no left child
              transplant(pNode, pNode.getmRight());
          } else if (pNode.getmRight() == null) {// no right child
@@ -155,7 +155,7 @@ public class Tree<T extends Node, S extends NodeFactory<T>> implements Serializa
      }// remove
 
 
-     private Node minimum(Node pNode) {
+     private Node<T> minimum(Node<T> pNode) {
          while(pNode.getmLeft() != null) {
            pNode = pNode.getmLeft();
          }
@@ -163,7 +163,7 @@ public class Tree<T extends Node, S extends NodeFactory<T>> implements Serializa
      }// minimum
 
 
-     private Node maximum(Node pNode) {
+     private Node<T> maximum(Node<T> pNode) {
          while(pNode.getmRight() != null) {
            pNode = pNode.getmRight();
          }
@@ -171,11 +171,11 @@ public class Tree<T extends Node, S extends NodeFactory<T>> implements Serializa
      }// maximum
 	 
    
-     protected Node successor(Node pNode) {
+     protected Node<T> successor(Node<T> pNode) {
          if (pNode.getmRight() != null) {
              return minimum(pNode.getmRight());
          }
-         Node ptr = pNode.getmParent();
+         Node<T> ptr = pNode.getmParent();
          while (ptr != null && pNode == ptr.getmRight())  {
              pNode = ptr; ptr = ptr.getmParent();
          }
@@ -183,11 +183,11 @@ public class Tree<T extends Node, S extends NodeFactory<T>> implements Serializa
      }// successor 
      
 
-     protected Node predecessor(Node pNode) {
+     protected Node<T> predecessor(Node<T> pNode) {
          if (pNode.getmLeft() != null) {
              return maximum(pNode.getmLeft());
          }
-         Node ptr = pNode.getmParent();
+         Node<T> ptr = pNode.getmParent();
          while (ptr != null && pNode == ptr.getmLeft())  {
              pNode = ptr; ptr = ptr.getmParent();
          }
@@ -195,9 +195,9 @@ public class Tree<T extends Node, S extends NodeFactory<T>> implements Serializa
      }// predecessor
     
      
-     public List<Integer> inOrderWalk(Node x) {
+     public List<Integer> inOrderWalk(Node<T> x) {
     	 List<Integer> list = new ArrayList<>();
-    	 Node pNode = minimum(x);
+    	 Node<T> pNode = minimum(x);
     	 while (pNode != null) {
     		 list.add(pNode.getmKey());
     		 pNode = successor(pNode);
@@ -208,11 +208,10 @@ public class Tree<T extends Node, S extends NodeFactory<T>> implements Serializa
          
      /** replace node u by node v in this tree 
       * transplant belongs to Node super class so it should accept Node not T*/
-    @SuppressWarnings("unchecked")
-	private void transplant(Node u, Node v) 
+	private void transplant(Node<T> u, Node<T> v) 
     {        
     	if (u.getmParent() == null) {
-    		 mRoot = (T)v;   
+    		mRoot = v;   
     	 } else if (u == u.getmParent().getmLeft()) {
     		 u.getmParent().setmLeft(v);
     	 } else {

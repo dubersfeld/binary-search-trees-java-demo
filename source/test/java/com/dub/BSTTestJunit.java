@@ -19,7 +19,7 @@ public class BSTTestJunit {
 		
 		SimpleNodeFactory nodeFactory = new SimpleNodeFactory();
 		
-		Tree<SimpleNode, SimpleNodeFactory> tree = new Tree<>(nodeFactory);
+		Tree<String, SimpleNodeFactory> tree = new Tree<>(nodeFactory);
 		
 		SimpleNode n1 = nodeFactory.build(15);
 		SimpleNode n2 = nodeFactory.build(42);
@@ -60,7 +60,7 @@ public class BSTTestJunit {
 				
 		assertEquals(refList, tree.inOrderWalk(tree.getmRoot()));
 		
-		Tree<SimpleNode, SimpleNodeFactory> tree2 
+		Tree<String, SimpleNodeFactory> tree2 
 		= new Tree<>(tree, nodeFactory);	
 
 		assertEquals(refList,tree2.inOrderWalk(tree2.getmRoot()));

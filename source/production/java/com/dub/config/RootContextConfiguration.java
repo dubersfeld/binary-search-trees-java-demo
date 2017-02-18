@@ -2,7 +2,6 @@ package com.dub.config;
 
 import org.springframework.core.Ordered;
 
-import com.dub.site.binarySearchTrees.DisplayNodeFactory;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -107,13 +106,7 @@ public class RootContextConfiguration
         return scheduler;
     }
     
-    /*
-    @Bean
-    public DisplayNodeFactory displayNodeFactory() {
-    	return new DisplayNodeFactory();
-    }
-    */
-
+   
     @Override
     public Executor getAsyncExecutor()
     {

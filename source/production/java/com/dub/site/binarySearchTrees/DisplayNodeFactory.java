@@ -3,7 +3,7 @@ package com.dub.site.binarySearchTrees;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DisplayNodeFactory extends NodeFactory<DisplayNode> {
+public class DisplayNodeFactory extends NodeFactory<Geometry> {
 
 	@Override
 	public DisplayNode build(int key) {
@@ -11,7 +11,7 @@ public class DisplayNodeFactory extends NodeFactory<DisplayNode> {
 	}
 
 	@Override
-	public DisplayNode build(int key, String data, DisplayNode left, DisplayNode right, DisplayNode parent) {
+	public DisplayNode build(int key, Geometry data, Node<Geometry> left, Node<Geometry> right, Node<Geometry> parent) {
 		return new DisplayNode(key, data, left, right, parent);
 	}
 

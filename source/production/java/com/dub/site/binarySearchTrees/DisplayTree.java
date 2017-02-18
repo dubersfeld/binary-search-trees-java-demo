@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class DisplayTree extends Tree<DisplayNode, DisplayNodeFactory> {
+public class DisplayTree extends Tree<Geometry, DisplayNodeFactory> {
 	
 	
 	/**
@@ -14,7 +14,7 @@ public class DisplayTree extends Tree<DisplayNode, DisplayNodeFactory> {
 	List<List<Integer>> results;
 	
 	
-	public DisplayTree(DisplayNode root, DisplayNodeFactory nodeFactory) {
+	public DisplayTree(Node<Geometry> root, DisplayNodeFactory nodeFactory) {
 		super(root, nodeFactory);    
 	}
   
@@ -44,16 +44,16 @@ public class DisplayTree extends Tree<DisplayNode, DisplayNodeFactory> {
             return true;        
         }
         
-        Queue<DisplayNode> queue = new Queue<DisplayNode>();
-        DisplayNode node;
-        
-        mRoot.setmDepth(0);
-        mRoot.setmIndex(0); 
-        
+        Queue<Node<Geometry>> queue = new Queue<>();
+        Node<Geometry> node;
+            
+        mRoot.getmData().setDepth(0);
+        mRoot.getmData().setIndex(0); 
+              
         queue.push_back(mRoot);
         
         results.clear();
-        
+           
         for (int i = 0; i < 5; i++) {
             results.add(new ArrayList<List<Integer>>());
         }
@@ -63,37 +63,37 @@ public class DisplayTree extends Tree<DisplayNode, DisplayNodeFactory> {
                  
             // update node depth and index attributes
             if (node.getmParent() != null) {// not root
-                node.setmDepth( ((DisplayNode)node.getmParent()).getmDepth() + 1 );                     
-                if (node.getmDepth() > 4) {
+                node.getmData().setDepth( node.getmParent().getmData().getDepth() + 1 );                     
+                if (node.getmData().getDepth() > 4) {
                     return false;         
                 }    
                 if ( node == node.getmParent().getmLeft() ) {// left child
-                    node.setmIndex(2 * ((DisplayNode)node.getmParent()).getmIndex());
+                    node.getmData().setIndex(2 * node.getmParent().getmData().getIndex());
                 } else {// right child
-                    node.setmIndex(2 * ((DisplayNode)node.getmParent()).getmIndex() + 1);
+                    node.getmData().setIndex(2 * node.getmParent().getmData().getIndex() + 1);
                 }// if
             }// if             
             if (node.getmParent() != null) {// not root
             	ArrayList<Integer> list = new ArrayList<Integer>(Arrays.asList(
-            														node.getmIndex(), 
+            														node.getmData().getIndex(), 
             														node.getmKey(), 
-            														((DisplayNode)node.getmParent()).getmIndex()));
+            														node.getmParent().getmData().getIndex()));
               
-            	results.get(node.getmDepth()).add(list);
+            	results.get(node.getmData().getDepth()).add(list);
             } else {
             	// root         	
             	ArrayList<Integer> list = new ArrayList<Integer>(Arrays.asList(
-																	node.getmIndex(), 
+																	node.getmData().getIndex(), 
 																	node.getmKey() 
 																));
-            	results.get(node.getmDepth()).add(list);
+            	results.get(node.getmData().getDepth()).add(list);
             }// if    
     
             if (node.getmLeft() != null) {
-                queue.push_back((DisplayNode)node.getmLeft());
+                queue.push_back(node.getmLeft());
             }
             if (node.getmRight() != null) {
-                queue.push_back((DisplayNode)node.getmRight());
+                queue.push_back(node.getmRight());
             } 
                    
         }// while
@@ -136,7 +136,7 @@ public class DisplayTree extends Tree<DisplayNode, DisplayNodeFactory> {
 	public String checkRemove(int key, List<List<List<Integer>>> results) 
 	{
 		// first search key
-		Node node = search(mRoot, key);
+		Node<Geometry> node = search(mRoot, key);
 		
 		if (node == null) {
 			results = new ArrayList<>();

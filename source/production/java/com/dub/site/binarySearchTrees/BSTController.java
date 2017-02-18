@@ -57,7 +57,7 @@ public class BSTController {
 		} else if (type == TreeRequest.Type.SEARCH) {
 			int searchkey = message.getKey();
 				
-			Node node = tree.search(tree.getmRoot(), searchkey);
+			Node<Geometry> node = tree.search(tree.getmRoot(), searchkey);
 			if (node != null) {
 				response.setType(TreeResponse.Type.FOUND);
 			} else {

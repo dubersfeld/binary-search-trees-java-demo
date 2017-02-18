@@ -1,22 +1,29 @@
 package com.dub.site.binarySearchTrees;
 
+import java.io.Serializable;
 
-public interface Node {
+/** Here T is the payload class */
+
+public interface Node<T extends Serializable> {
 	
 	public int getmKey();
 
 	public void setmKey(int mKey);
 	
-	public Node getmLeft();
+	public Node<T> getmLeft();
 
-	public void setmLeft(Node mLeft);
+	public void setmLeft(Node<T> mLeft);
 
-	public Node getmRight();
+	public Node<T> getmRight();
 
-	public void setmRight(Node mRight);
+	public void setmRight(Node<T> mRight);
 
-	public Node getmParent();
+	public Node<T> getmParent();
 
-	public void setmParent(Node mParent);
+	public void setmParent(Node<T> mParent);
+	
+	public T getmData();
+	
+	public void setmData(T data);
 	  
 } 
