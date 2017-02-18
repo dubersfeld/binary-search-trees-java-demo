@@ -78,7 +78,6 @@ public class DisplayBSTTestJunit {
 		
 		assertEquals(refList,tree.inOrderWalk(tree.getmRoot()));
 		
-		/*
 		List<List<List<Integer>>> results 
 		= new ArrayList<List<List<Integer>>>();
 
@@ -87,6 +86,5 @@ public class DisplayBSTTestJunit {
 		String refGeo = "[[[0, 15]], [[1, 42, 0]], [[2, 33, 1], [3, 77, 1]], [[4, 19, 2], [6, 63, 3]], [[9, 25, 4]]]";
 		
 		assertEquals(refGeo,results.toString());
-			*/
    }
 }
