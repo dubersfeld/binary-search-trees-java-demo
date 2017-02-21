@@ -42,4 +42,12 @@ public class Queue<T> {
 	public boolean isEmpty() {
 		return list.isEmpty();
 	} 
+	
+	/*
+	public void display() {
+		for (int i = 0; i < list.size(); i++) {
+			System.out.println(list.get(i));
+		}
+	} 
+	*/
 }

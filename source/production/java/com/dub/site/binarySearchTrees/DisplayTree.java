@@ -40,17 +40,17 @@ public class DisplayTree extends Tree<Geometry, DisplayNodeFactory> {
 	       
     public boolean breadthFirstWalk(List<List<List<Integer>>> results) 
     {
-        if (mRoot == null) {
+        if (root == null) {
             return true;        
         }
         
         Queue<Node<Geometry>> queue = new Queue<>();
         Node<Geometry> node;
             
-        mRoot.getmData().setDepth(0);
-        mRoot.getmData().setIndex(0); 
+        root.getData().setDepth(0);
+        root.getData().setIndex(0); 
               
-        queue.push_back(mRoot);
+        queue.push_back(root);
         
         results.clear();
            
@@ -62,38 +62,38 @@ public class DisplayTree extends Tree<Geometry, DisplayNodeFactory> {
             node = queue.pop_front();
                  
             // update node depth and index attributes
-            if (node.getmParent() != null) {// not root
-                node.getmData().setDepth( node.getmParent().getmData().getDepth() + 1 );                     
-                if (node.getmData().getDepth() > 4) {
+            if (node.getParent() != null) {// not root
+                node.getData().setDepth( node.getParent().getData().getDepth() + 1 );                     
+                if (node.getData().getDepth() > 4) {
                     return false;         
                 }    
-                if ( node == node.getmParent().getmLeft() ) {// left child
-                    node.getmData().setIndex(2 * node.getmParent().getmData().getIndex());
+                if ( node == node.getParent().getLeft() ) {// left child
+                    node.getData().setIndex(2 * node.getParent().getData().getIndex());
                 } else {// right child
-                    node.getmData().setIndex(2 * node.getmParent().getmData().getIndex() + 1);
+                    node.getData().setIndex(2 * node.getParent().getData().getIndex() + 1);
                 }// if
             }// if             
-            if (node.getmParent() != null) {// not root
+            if (node.getParent() != null) {// not root
             	ArrayList<Integer> list = new ArrayList<Integer>(Arrays.asList(
-            														node.getmData().getIndex(), 
-            														node.getmKey(), 
-            														node.getmParent().getmData().getIndex()));
+            														node.getData().getIndex(), 
+            														node.getKey(), 
+            														node.getParent().getData().getIndex()));
               
-            	results.get(node.getmData().getDepth()).add(list);
+            	results.get(node.getData().getDepth()).add(list);
             } else {
             	// root         	
             	ArrayList<Integer> list = new ArrayList<Integer>(Arrays.asList(
-																	node.getmData().getIndex(), 
-																	node.getmKey() 
+																	node.getData().getIndex(), 
+																	node.getKey() 
 																));
-            	results.get(node.getmData().getDepth()).add(list);
+            	results.get(node.getData().getDepth()).add(list);
             }// if    
     
-            if (node.getmLeft() != null) {
-                queue.push_back(node.getmLeft());
+            if (node.getLeft() != null) {
+                queue.push_back(node.getLeft());
             }
-            if (node.getmRight() != null) {
-                queue.push_back(node.getmRight());
+            if (node.getRight() != null) {
+                queue.push_back(node.getRight());
             } 
                    
         }// while
@@ -106,7 +106,7 @@ public class DisplayTree extends Tree<Geometry, DisplayNodeFactory> {
 	public String checkInsert(int key, List<List<List<Integer>>> results) 
 	{
         // first search for key
-        if (search(mRoot, key) != null) {// key already present
+        if (search(root, key) != null) {// key already present
         	
           	results = new ArrayList<>();
           	return "NP";
@@ -114,7 +114,7 @@ public class DisplayTree extends Tree<Geometry, DisplayNodeFactory> {
             // first save a local copy of the tree 
     		DisplayTree treeSave = new DisplayTree(this, nodeFactory);
     	
-    		treeSave.inOrderWalk(treeSave.getmRoot());// debug only
+    		treeSave.inOrderWalk(treeSave.getRoot());// debug only
     		// then insert new key
     	    insert(nodeFactory.build(key));
     		boolean allowed = breadthFirstWalk(results);
@@ -136,7 +136,7 @@ public class DisplayTree extends Tree<Geometry, DisplayNodeFactory> {
 	public String checkRemove(int key, List<List<List<Integer>>> results) 
 	{
 		// first search key
-		Node<Geometry> node = search(mRoot, key);
+		Node<Geometry> node = search(root, key);
 		
 		if (node == null) {
 			results = new ArrayList<>();

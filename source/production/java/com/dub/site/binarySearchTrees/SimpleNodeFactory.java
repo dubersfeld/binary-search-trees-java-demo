@@ -8,7 +8,7 @@ public class SimpleNodeFactory extends NodeFactory<String> {
 	}
 
 	@Override
-	public Node<String> build(int key, String data, Node<String> left, Node<String> right, Node<String> parent) {
+	public SimpleNode build(int key, String data, Node<String> left, Node<String> right, Node<String> parent) {
 		return new SimpleNode(key, data, left, right, parent);
 	}
 

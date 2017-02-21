@@ -1,81 +1,78 @@
 package com.dub.site.binarySearchTrees;
 
-/** in addition to the basic Tree methods this class also has some additional methods only used for display */
+/** Here Geometry is a helper class used for display on Canvas */
 public class DisplayNode implements Node<Geometry> {
 	 
-	private int mKey;
-	private Node<Geometry> mLeft, mRight, mParent;
-	private Geometry mData;
+	private int key;
+	private Node<Geometry> left, right, parent;
+	private Geometry data;
 	
 	public DisplayNode(int key) {
-		this.mKey = key;
-		this.mData = new Geometry();// not null
-    	this.mLeft = null;
-    	this.mRight = null;
-    	this.mParent = null;     
+		this.key = key;
+		this.data = new Geometry();// not null
+    	this.left = null;
+    	this.right = null;
+    	this.parent = null;     
 	}
 	
 
     public DisplayNode(int key, Geometry data, Node<Geometry> left, Node<Geometry> right, Node<Geometry> parent) {
-    	this.mKey = key;
-    	this.mData = data;
-    	this.mLeft = left;
-    	this.mRight = right;
-    	this.mParent = parent;
+    	this.key = key;
+    	this.data = data;
+    	this.left = left;
+    	this.right = right;
+    	this.parent = parent;
     }
 	
 		
     @Override
-	public int getmKey() {
-		return mKey;
+	public int getKey() {
+		return key;
 	}
 
 
     @Override
-	public void setmKey(int mKey) {
-		this.mKey = mKey;
+	public void setKey(int key) {
+		this.key = key;
 	}
 
     @Override
-	public Node<Geometry> getmLeft() {
-		return mLeft;
+	public Node<Geometry> getLeft() {
+		return left;
 	}
 
     @Override
-	public void setmLeft(Node<Geometry> mLeft) {
-		this.mLeft = mLeft;
+	public void setLeft(Node<Geometry> left) {
+		this.left = left;
 	}
 
     @Override
-	public Node<Geometry> getmRight() {
-		return mRight;
+	public Node<Geometry> getRight() {
+		return right;
 	}
 
     @Override
-	public void setmRight(Node<Geometry> mRight) {
-		this.mRight = mRight;
+	public void setRight(Node<Geometry> right) {
+		this.right = right;
 	}
 
     @Override
-	public Node<Geometry> getmParent() {
-		return mParent;
+	public Node<Geometry> getParent() {
+		return parent;
 	}
 
     @Override
-	public void setmParent(Node<Geometry> mParent) {
-		this.mParent = mParent;
+	public void setParent(Node<Geometry> parent) {
+		this.parent = parent;
 	}
 
     @Override
-	public Geometry getmData() {
-		return mData;
+	public Geometry getData() {
+		return data;
 	}
 
     @Override
-	public void setmData(Geometry mData) {
-		this.mData = mData;
+	public void setData(Geometry data) {
+		this.data = data;
 	}
-
-	
-
 }

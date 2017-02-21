@@ -4,74 +4,74 @@ package com.dub.site.binarySearchTrees;
 /** Simple Node implementation */
 public class SimpleNode implements Node<String> {
 	
-	private int mKey;
-	private Node<String> mLeft, mRight, mParent;
-	private String mData;
+	private int key;
+	private Node<String> left, right, parent;
+	private String data;
      	
 	public SimpleNode(int key) {
-		this.mKey = key;
-		this.mData = "";// not null
-    	this.mLeft = null;
-    	this.mRight = null;
-    	this.mParent = null;     
+		this.key = key;
+		this.data = "";// not null
+    	this.left = null;
+    	this.right = null;
+    	this.parent = null;     
 	}
 	
 
     public SimpleNode(int key, String data, Node<String> left, Node<String> right, Node<String> parent) {
-    	this.mKey = key;
-    	this.mData = data;
-    	this.mLeft = left;
-    	this.mRight = right;
-    	this.mParent = parent;
+    	this.key = key;
+    	this.data = data;
+    	this.left = left;
+    	this.right = right;
+    	this.parent = parent;
     }
 
     @Override
-	public int getmKey() {
-		return mKey;
+	public int getKey() {
+		return key;
 	}
 
     @Override
-	public void setmKey(int mKey) {
-		this.mKey = mKey;
+	public void setKey(int key) {
+		this.key = key;
 	}
 
     @Override
-	public SimpleNode getmLeft() {
-		return (SimpleNode)mLeft;
+	public Node<String> getLeft() {
+		return (SimpleNode)left;
 	}
 
     @Override
-	public void setmLeft(Node<String> mLeft) {
-		this.mLeft = (SimpleNode)mLeft;
+	public void setLeft(Node<String> left) {
+		this.left = left;
 	}
 
     @Override
-	public SimpleNode getmRight() {
-		return (SimpleNode)mRight;
+	public Node<String> getRight() {
+		return right;
 	}
 
     @Override
-	public void setmRight(Node<String> mRight) {
-		this.mRight = (SimpleNode)mRight;
+	public void setRight(Node<String> right) {
+		this.right = right;
 	}
 
     @Override
-	public SimpleNode getmParent() {
-		return (SimpleNode)mParent;
+	public Node<String> getParent() {
+		return parent;
 	}
 
     @Override
-	public void setmParent(Node<String> mParent) {
-		this.mParent = (SimpleNode)mParent;
+	public void setParent(Node<String> parent) {
+		this.parent = parent;
 	}
 
     @Override
-	public String getmData() {
-		return mData;
+	public String getData() {
+		return data;
 	}
 
     @Override
-	public void setmData(String mData) {
-		this.mData = mData;
+	public void setData(String data) {
+		this.data = data;
 	}  
 } 

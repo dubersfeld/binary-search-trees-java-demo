@@ -6,24 +6,24 @@ import java.io.Serializable;
 
 public interface Node<T extends Serializable> {
 	
-	public int getmKey();
+	public int getKey();
 
-	public void setmKey(int mKey);
+	public void setKey(int key);
 	
-	public Node<T> getmLeft();
+	public Node<T> getLeft();
 
-	public void setmLeft(Node<T> mLeft);
+	public void setLeft(Node<T> left);
 
-	public Node<T> getmRight();
+	public Node<T> getRight();
 
-	public void setmRight(Node<T> mRight);
+	public void setRight(Node<T> right);
 
-	public Node<T> getmParent();
+	public Node<T> getParent();
 
-	public void setmParent(Node<T> mParent);
+	public void setParent(Node<T> parent);
 	
-	public T getmData();
+	public T getData();
 	
-	public void setmData(T data);
+	public void setData(T data);
 	  
 } 

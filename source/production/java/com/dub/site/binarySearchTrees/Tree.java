@@ -11,17 +11,17 @@ public class Tree<T extends Serializable, S extends NodeFactory<T>> implements S
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	Node<T> mRoot;// root node
-	S nodeFactory;// nodeFactory
+	protected Node<T> root;// root node
+	protected S nodeFactory;// nodeFactory
 	  
     public Tree(Node<T> root, S nodeFactory) {
-    	this.mRoot = root;
+    	this.root = root;
     	this.nodeFactory = nodeFactory;
     	
     }
 
     public Tree(S nodeFactory) {
-    	this.mRoot = null;
+    	this.root = null;
     	this.nodeFactory = nodeFactory;
     }
     
@@ -37,17 +37,15 @@ public class Tree<T extends Serializable, S extends NodeFactory<T>> implements S
     	Queue<Node<T>> queueP = new Queue<>();// this side
     	Node<T> x, last;//rhs side
              
-    	Node<T> prevC;// this side
-    	Node<T> newnode; 
+    	Node<T> prevC, newnode;// this side
 
-
-    	if (rhs.mRoot == null) {
-    		this.mRoot = null;
+    	if (rhs.root == null) {
+    		this.root = null;
     		return;// rhs tree is empty
     	}
     
     	// initial push_back to start
-    	queue.push_back(rhs.mRoot);
+    	queue.push_back(rhs.root);
               
     	last = null;
     	prevC = null;
@@ -56,47 +54,49 @@ public class Tree<T extends Serializable, S extends NodeFactory<T>> implements S
     		
     		x = queue.pop_front();
     		 		
-    		newnode = nodeFactory.build(x.getmKey());
+    		newnode = nodeFactory.build(x.getKey());// to correct
     		      
-    		if (x == rhs.mRoot) {// special case                 
-    			mRoot = newnode;
+    		if (x == rhs.root) {// special case                 
+    			root = newnode;
     		} else {
-    			if (last.getmParent() != x.getmParent()) {// new parent needed
+    			if (last.getParent() != x.getParent()) {// new parent needed
     				prevC = queueP.front();
-    				queueP.pop_front();
+    				queueP.pop_front();// to improve
     			}                      
-    			if (x == x.getmParent().getmLeft()) {// x is a left child
-    				prevC.setmLeft(newnode);
+    			if (x == x.getParent().getLeft()) {// x is a left child
+    				prevC.setLeft(newnode);
     			} else {// x is a right child
-    				prevC.setmRight(newnode);               
+    				prevC.setRight(newnode);               
     			}
-                     newnode.setmParent(prevC);       
+                     newnode.setParent(prevC);       
     		}     
-    		if (x.getmLeft() != null) {
-    			queue.push_back(x.getmLeft());     
+    		if (x.getLeft() != null) {
+    			queue.push_back(x.getLeft());     
     		}     
-    		if (x.getmRight() != null) {
-    			queue.push_back(x.getmRight());
+    		if (x.getRight() != null) {
+    			queue.push_back(x.getRight());
     		}      
-    		queueP.push_back(newnode);     
+    		if (x.getLeft() != null || x.getRight() != null) {// at least one child
+    			queueP.push_back(newnode);     
+    		}
     		last = x;// rhs side          
     	}         
     }
    
-	public Node<T> getmRoot() {
-		return mRoot;
+	public Node<T> getRoot() {
+		return root;
 	}
 
-	public void setmRoot(Node<T> mRoot) {
-		this.mRoot = mRoot;
+	public void setRoot(Node<T> root) {
+		this.root = root;
 	}  
     
 	public Node<T> search(Node<T> node, int key) {
-        while (node != null && key != node.getmKey()) {
-            if (key < node.getmKey()) {
-                node = node.getmLeft();
+        while (node != null && key != node.getKey()) {
+            if (key < node.getKey()) {
+                node = node.getLeft();
             } else {
-                node = node.getmRight();
+                node = node.getRight();
             }
         }
         return node;            
@@ -105,91 +105,91 @@ public class Tree<T extends Serializable, S extends NodeFactory<T>> implements S
 	public void insert(Node<T> x) {
       
          Node<T> ptr = null;
-         Node<T> ptr1 = mRoot;
+         Node<T> ptr1 = root;
 
-         if (mRoot == null) { 
+         if (root == null) { 
         	 // tree empty
-             mRoot = x;
-             mRoot.setmParent(null);
-             mRoot.setmLeft(null);
-             mRoot.setmRight(null);
+             root = x;
+             root.setParent(null);
+             root.setLeft(null);
+             root.setRight(null);
              return;
          }
    
          while (ptr1 != null) {
         	 // tree not empty
              ptr = ptr1;
-             if (x.getmKey() < ptr1.getmKey()) {
-                 ptr1 = ptr1.getmLeft();
+             if (x.getKey() < ptr1.getKey()) {
+                 ptr1 = ptr1.getLeft();
              } else {
-                 ptr1 = ptr1.getmRight();
+                 ptr1 = ptr1.getRight();
              }                
          }
-         x.setmParent(ptr);
+         x.setParent(ptr);
          
-         if (x.getmKey() < ptr.getmKey()) {
-             ptr.setmLeft(x);
+         if (x.getKey() < ptr.getKey()) {
+             ptr.setLeft(x);
          } else {
-             ptr.setmRight(x);
+             ptr.setRight(x);
          }
      }// insert
 	 
 	public void remove(Node<T> pNode) {		
          Node<T> ptr = null;
-         if (pNode.getmLeft() == null) {// no left child
-             transplant(pNode, pNode.getmRight());
-         } else if (pNode.getmRight() == null) {// no right child
-             transplant(pNode, pNode.getmLeft()); 
+         if (pNode.getLeft() == null) {// no left child
+             transplant(pNode, pNode.getRight());
+         } else if (pNode.getRight() == null) {// no right child
+             transplant(pNode, pNode.getLeft()); 
          } else {// both children
-             ptr = minimum(pNode.getmRight());// successor of pNode 
+             ptr = minimum(pNode.getRight());// successor of pNode 
              
-             if (ptr.getmParent() != pNode) {
-                 transplant(ptr, ptr.getmRight());
-                 ptr.setmRight(pNode.getmRight()); 
-                 ptr.getmRight().setmParent(ptr);
+             if (ptr.getParent() != pNode) {
+                 transplant(ptr, ptr.getRight());
+                 ptr.setRight(pNode.getRight()); 
+                 ptr.getRight().setParent(ptr);
              }
              transplant(pNode, ptr);
-             ptr.setmLeft(pNode.getmLeft());
-             ptr.getmLeft().setmParent(ptr);
+             ptr.setLeft(pNode.getLeft());
+             ptr.getLeft().setParent(ptr);
          }
      }// remove
 
 
      private Node<T> minimum(Node<T> pNode) {
-         while(pNode.getmLeft() != null) {
-           pNode = pNode.getmLeft();
+         while(pNode.getLeft() != null) {
+           pNode = pNode.getLeft();
          }
          return pNode;
      }// minimum
 
 
      private Node<T> maximum(Node<T> pNode) {
-         while(pNode.getmRight() != null) {
-           pNode = pNode.getmRight();
+         while(pNode.getRight() != null) {
+           pNode = pNode.getRight();
          }
          return pNode;
      }// maximum
 	 
    
      protected Node<T> successor(Node<T> pNode) {
-         if (pNode.getmRight() != null) {
-             return minimum(pNode.getmRight());
+         if (pNode.getRight() != null) {
+             return minimum(pNode.getRight());
          }
-         Node<T> ptr = pNode.getmParent();
-         while (ptr != null && pNode == ptr.getmRight())  {
-             pNode = ptr; ptr = ptr.getmParent();
+         Node<T> ptr = pNode.getParent();
+         while (ptr != null && pNode == ptr.getRight())  {
+             pNode = ptr; ptr = ptr.getParent();
          }
          return ptr;        
      }// successor 
      
 
      protected Node<T> predecessor(Node<T> pNode) {
-         if (pNode.getmLeft() != null) {
-             return maximum(pNode.getmLeft());
+         if (pNode.getLeft() != null) {
+             return maximum(pNode.getLeft());
          }
-         Node<T> ptr = pNode.getmParent();
-         while (ptr != null && pNode == ptr.getmLeft())  {
-             pNode = ptr; ptr = ptr.getmParent();
+         Node<T> ptr = pNode.getParent();
+         while (ptr != null && pNode == ptr.getLeft())  {
+             pNode = ptr; ptr = ptr.getParent();
          }
          return ptr;        
      }// predecessor
@@ -199,7 +199,7 @@ public class Tree<T extends Serializable, S extends NodeFactory<T>> implements S
     	 List<Integer> list = new ArrayList<>();
     	 Node<T> pNode = minimum(x);
     	 while (pNode != null) {
-    		 list.add(pNode.getmKey());
+    		 list.add(pNode.getKey());
     		 pNode = successor(pNode);
     		 
     	 }
@@ -210,16 +210,16 @@ public class Tree<T extends Serializable, S extends NodeFactory<T>> implements S
       * transplant belongs to Node super class so it should accept Node not T*/
 	private void transplant(Node<T> u, Node<T> v) 
     {        
-    	if (u.getmParent() == null) {
-    		mRoot = v;   
-    	 } else if (u == u.getmParent().getmLeft()) {
-    		 u.getmParent().setmLeft(v);
+    	if (u.getParent() == null) {
+    		root = v;   
+    	 } else if (u == u.getParent().getLeft()) {
+    		 u.getParent().setLeft(v);
     	 } else {
-    		 u.getmParent().setmRight(v);
+    		 u.getParent().setRight(v);
     	 }
           
     	 if (v != null) {    
-    		 v.setmParent(u.getmParent()); 
+    		 v.setParent(u.getParent()); 
     	 }
     }// transplant
     

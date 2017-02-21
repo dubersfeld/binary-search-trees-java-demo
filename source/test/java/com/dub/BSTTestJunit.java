@@ -39,40 +39,40 @@ public class BSTTestJunit {
 		
 		assertNotEquals(null, tree.search(n1, 42));
 		
-		assertEquals(15, tree.getmRoot().getmKey());
+		assertEquals(15, tree.getRoot().getKey());
 		
-		assertEquals(null,tree.getmRoot().getmLeft());
+		assertEquals(null,tree.getRoot().getLeft());
 		
-		assertEquals(42,tree.getmRoot().getmRight().getmKey());
+		assertEquals(42,tree.getRoot().getRight().getKey());
 		
-		assertEquals(33,n2.getmLeft().getmKey());
+		assertEquals(33,n2.getLeft().getKey());
 		
-		assertEquals(77,n2.getmRight().getmKey());
+		assertEquals(77,n2.getRight().getKey());
 		
-		assertEquals(19,n4.getmLeft().getmKey());
+		assertEquals(19,n4.getLeft().getKey());
 		
-		assertEquals(null,n4.getmRight());
+		assertEquals(null,n4.getRight());
 		
-		assertEquals(25,n5.getmRight().getmKey());
+		assertEquals(25,n5.getRight().getKey());
 		
 		List<Integer> refList = 
 						new ArrayList<Integer>(Arrays.asList(15, 19, 25, 33, 42, 63, 77));
 				
-		assertEquals(refList, tree.inOrderWalk(tree.getmRoot()));
+		assertEquals(refList, tree.inOrderWalk(tree.getRoot()));
 		
 		Tree<String, SimpleNodeFactory> tree2 
 		= new Tree<>(tree, nodeFactory);	
 
-		assertEquals(refList,tree2.inOrderWalk(tree2.getmRoot()));
+		assertEquals(refList,tree2.inOrderWalk(tree2.getRoot()));
 		
 		tree.remove(n2);
 		
 		List<Integer> refListA = 
 				new ArrayList<Integer>(Arrays.asList(15, 19, 25, 33, 63, 77));
 
-		assertEquals(refListA,tree.inOrderWalk(tree.getmRoot()));
+		assertEquals(refListA,tree.inOrderWalk(tree.getRoot()));
 		
-		assertEquals(refList,tree2.inOrderWalk(tree2.getmRoot()));
+		assertEquals(refList,tree2.inOrderWalk(tree2.getRoot()));
 		
    }
 }
