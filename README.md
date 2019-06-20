@@ -7,15 +7,13 @@ The tree depth is limited to 4 to keep the display simple.
 
 The BST implementation closely follows Cormen's textbook except that I always favor the non-recursive implementation over the recursive one.
 
-In addition I created two Junit classes to separately test the Tree class and the DisplayTree subclass used in the actual application.
-
 I chose to make the Tree class generic.
 
-For the deployment on Tomcat the context root is binary-search-trees.
+To launch the demo run the command `mvn spring-boot:run` in project directory. When the appllication has started open a browser and hit URL `localhost:8080/binary-search-trees`.
 
-For a pure Javascript implementation please visit the repository:
+Here is a screen shot that can be seen during the demo:
 
-https://github.com/dubersfeld/binary-search-trees-javascript-demo
+![alt text](images/bst.png "Binary search tree")
 
 
-Dominique Ubersfeld, Cachan, France  
+Dominique Ubersfeld, Cachan, France
