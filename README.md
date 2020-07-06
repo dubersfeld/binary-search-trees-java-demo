@@ -15,5 +15,8 @@ Here is a screen shot that can be seen during the demo:
 
 ![alt text](images/bst.png "Binary search tree")
 
+For a video demo follow this link:
+
+https://youtu.be/qMq2Nph4RYk 
 
 Dominique Ubersfeld, Cachan, France
